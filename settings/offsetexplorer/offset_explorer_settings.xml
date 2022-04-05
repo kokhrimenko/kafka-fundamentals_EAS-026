@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<connections>
+<connection bootstrap_servers="localhost:29092" broker_security_type="PLAINTEXT" chroot="/" group="Clusters" groupId="1" host="localhost" jaas_config="" keystore_location="" keystore_password="" keystore_privatekey="" name="kafka-cluster-with-single-node" port="22181" sasl_mechanism="" schema_registry_endpoint="" truststore_location="" truststore_password="" version="VERSION_0_11"/>
+<groups>
+<group id="1" name="Clusters"/>
+</groups>
+</connections>
