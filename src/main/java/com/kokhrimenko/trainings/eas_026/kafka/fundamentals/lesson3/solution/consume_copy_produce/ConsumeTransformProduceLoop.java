@@ -39,8 +39,8 @@ public class ConsumeTransformProduceLoop {
 	private static final String CONSUMER_GROUP_ID = "ConsumeTransformProduceLoopconsumergroup";
 	private static final String PRODUCER_TRANSACTIONAL_ID = "ConsumeTransformProduceLoopproducertrids";
 
-	private static final String INPUT_TOPIC = "ConsumeTransformProduceLoopinput";
-	private static final String OUTPUT_TOPIC = "ConsumeTransformProduceLoopoutput";
+	private static final String INPUT_TOPIC = "EAS026sentences";
+	private static final String OUTPUT_TOPIC = "EAS026counts";
 
 	public static void main(String[] args) throws IOException {
 		log.info("Consume-transform-produce loop start");
