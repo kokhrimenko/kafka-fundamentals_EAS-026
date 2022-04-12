@@ -14,7 +14,7 @@ openssl req -new -x509 -keyout secrets/luxoft-eas-026-ca.key -out secrets/luxoft
 
 echo " OK!"
 
-for i in 'broker' 'producer' 'consumer' 'schema-registry'
+for i in 'broker' 'producer' 'consumer' 'schema-registry' 'kafka-rest'
 do
 	printf "Creating cert and keystore of $i..."
 	# Create keystores

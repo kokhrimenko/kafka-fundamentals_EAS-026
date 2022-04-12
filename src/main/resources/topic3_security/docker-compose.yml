@@ -33,6 +33,31 @@ services:
     volumes:
       - ./secrets:/etc/kafka/secrets
 
+  kafka-rest:
+    image: confluentinc/cp-kafka-rest:5.3.1-1
+    container_name: kafka-rest
+    hostname: kafka-rest
+    depends_on:
+      - zookeeper
+      - kafka-ssl
+      - schemaregistry
+    restart: unless-stopped
+    ports:
+      - 8082:8082/tcp
+    environment:
+      KAFKA_REST_BOOTSTRAP_SERVERS: SSL://broker:9092
+      KAFKA_REST_LISTENERS: http://0.0.0.0:8082
+      KAFKA_REST_SCHEMA_REGISTRY_URL: https://schema-registry:8081
+      KAFKA_REST_HOST_NAME: kafka-rest
+      KAFKA_REST_CLIENT_SECURITY_PROTOCOL: SSL
+      KAFKA_REST_CLIENT_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka-rest.keystore.jks
+      KAFKA_REST_CLIENT_SSL_KEYSTORE_PASSWORD: secret
+      KAFKA_REST_CLIENT_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka-rest.keystore.jks
+      KAFKA_REST_CLIENT_SSL_TRUSTSTORE_PASSWORD: secret
+      KAFKA_REST_CLIENT_SSL_KEY_PASSWORD: secret
+    volumes:
+      - ./secrets:/etc/kafka/secrets
+
   schemaregistry:
     image: confluentinc/cp-schema-registry
     container_name: schema-registry
