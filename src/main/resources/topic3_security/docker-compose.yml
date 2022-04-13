@@ -34,7 +34,7 @@ services:
       - ./secrets:/etc/kafka/secrets
 
   kafka-rest:
-    image: confluentinc/cp-kafka-rest:5.3.1-1
+    image: confluentinc/cp-kafka-rest
     container_name: kafka-rest
     hostname: kafka-rest
     depends_on:
@@ -47,14 +47,20 @@ services:
     environment:
       KAFKA_REST_BOOTSTRAP_SERVERS: SSL://broker:9092
       KAFKA_REST_LISTENERS: http://0.0.0.0:8082
+      KAFKA_REST_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_REST_SCHEMA_REGISTRY_URL: https://schema-registry:8081
+      KAFKA_REST_SCHEMA_REGISTRY_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/schema-registry.keystore.jks
+      KAFKA_REST_SCHEMA_REGISTRY_SSL_KEYSTORE_PASSWORD: secret
+      KAFKA_REST_SCHEMA_REGISTRY_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/schema-registry.truststore.jks
+      KAFKA_REST_SCHEMA_REGISTRY_SSL_TRUSTSTORE_PASSWORD: secret
       KAFKA_REST_HOST_NAME: kafka-rest
       KAFKA_REST_CLIENT_SECURITY_PROTOCOL: SSL
       KAFKA_REST_CLIENT_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka-rest.keystore.jks
       KAFKA_REST_CLIENT_SSL_KEYSTORE_PASSWORD: secret
-      KAFKA_REST_CLIENT_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka-rest.keystore.jks
+      KAFKA_REST_CLIENT_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka-rest.truststore.jks
       KAFKA_REST_CLIENT_SSL_TRUSTSTORE_PASSWORD: secret
       KAFKA_REST_CLIENT_SSL_KEY_PASSWORD: secret
+      KAFKA_REST_DEBUG: "true"
     volumes:
       - ./secrets:/etc/kafka/secrets
 
@@ -74,17 +80,19 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: SSL://broker:9092
       SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL: SSL
       SCHEMA_REGISTRY_KAFKASTORE_SSL_KEYSTORE_LOCATION: /etc/schema-registry/secrets/schema-registry.keystore.jks
-      SCHEMA_REGISTRY_SSL_KEYSTORE_LOCATION: /etc/schema-registry/secrets/schema-registry.keystore.jks
       SCHEMA_REGISTRY_KAFKASTORE_SSL_KEYSTORE_PASSWORD: secret
-      SCHEMA_REGISTRY_SSL_KEYSTORE_PASSWORD: secret
       SCHEMA_REGISTRY_KAFKASTORE_SSL_KEY_PASSWORD: secret
-      SCHEMA_REGISTRY_SSL_KEY_PASSWORD: secret
       SCHEMA_REGISTRY_KAFKASTORE_SSL_TRUSTSTORE_LOCATION: /etc/schema-registry/secrets/schema-registry.truststore.jks
-      SCHEMA_REGISTRY_SSL_TRUSTSTORE_LOCATION: /etc/schema-registry/secrets/schema-registry.truststore.jks
       SCHEMA_REGISTRY_KAFKASTORE_SSL_TRUSTSTORE_PASSWORD: secret
+      
+      SCHEMA_REGISTRY_SSL_KEYSTORE_LOCATION: /etc/schema-registry/secrets/schema-registry.keystore.jks
+      SCHEMA_REGISTRY_SSL_KEYSTORE_PASSWORD: secret
+      SCHEMA_REGISTRY_SSL_KEY_PASSWORD: secret
+      SCHEMA_REGISTRY_SSL_TRUSTSTORE_LOCATION: /etc/schema-registry/secrets/schema-registry.truststore.jks
       SCHEMA_REGISTRY_SSL_TRUSTSTORE_PASSWORD: secret
       SCHEMA_REGISTRY_SCHEMA_REGISTRY_INTER_INSTANCE_PROTOCOL: https
-      SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
       SCHEMA_REGISTRY_SSL_CLIENT_AUTH: 'true'
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
+      SCHEMA_REGISTRY_OPTS: "-Djavax.net.ssl.keyStore=/etc/schema-registry/secrets/schema-registry.keystore.jks -Djavax.net.ssl.trustStore=/etc/schema-registry/secrets/schema-registry.truststore.jks -Djavax.net.ssl.keyStorePassword=secret -Djavax.net.ssl.trustStorePassword=secret -Djavax.net.ssl.trustStoreType=JKS"
     volumes:
       - ./secrets:/etc/schema-registry/secrets
