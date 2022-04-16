@@ -1,0 +1,68 @@
+version: '2'
+services:
+  cluster_1_zookeeper:
+    container_name: zookeeper_cluster_1
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+  
+  cluster_1_kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - cluster_1_zookeeper
+    container_name: cluster_1_kafka
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper_cluster_1:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://cluster_1_kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  topic-creation:
+    image: confluentinc/cp-kafka:latest
+    command: bash -c "cub kafka-ready -z cluster_1_zookeeper:2181 1 30 && kafka-topics --bootstrap-server cluster_1_kafka:9092 --create --topic topic_to_mirror --partitions 1 --replication-factor 1"
+    depends_on:
+      - cluster_1_zookeeper
+      - cluster_1_kafka
+
+  cluster_2_zookeeper:
+    container_name: zookeeper_cluster_2
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 32181:2181
+  
+  cluster_2_kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - cluster_2_zookeeper
+    container_name: cluster_2_kafka
+    ports:
+      - 39092:39092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper_cluster_2:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://cluster_2_kafka:9092,PLAINTEXT_HOST://localhost:39092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  mirror-maker:
+    image: wpietri/mirror-maker:2
+    depends_on:
+      - cluster_1_zookeeper
+      - cluster_1_kafka
+      - cluster_2_zookeeper
+      - cluster_2_kafka
+    environment:
+      - SOURCE=cluster_1_kafka:9092
+      - DESTINATION=cluster_2_kafka:9092
+      - TOPICS=topic_to_mirror
