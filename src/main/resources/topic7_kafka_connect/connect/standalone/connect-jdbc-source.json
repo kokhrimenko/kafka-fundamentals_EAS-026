@@ -1,16 +1,15 @@
 {
     "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
     "name": "jdbc-source-connector",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schema.registry.url": "http://schemaregistry:8081",
     "connection.url": "jdbc:mysql://db:3306/kafka_db",
     "connection.user": "root",
     "connection.password": "mysql",
     "table.whitelist": "kafka_connect_jdbc_source",
-    "mode": "incrementing",
-    "topics": "kafka_connect_jdbc_sink",
-    "tasks.max": "30",
-    "poll.interval.ms": "1000",
-    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-    "value.converter.schema.registry.url": "http://schemaregistry:8081",
-    "auto.create": "true"
+    "mode": "timestamp",
+    "timestamp.column.name": "update_ts",
+    "validate.non.null": "false",
+    "topic.prefix": "mysql_"
 }
