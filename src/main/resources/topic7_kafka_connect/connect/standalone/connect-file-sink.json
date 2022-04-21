@@ -1,0 +1,9 @@
+{
+    "connector.class": "com.kokhrimenko.trainings.eas_026.kafka.fundamentals.lesson7.sink.FileStreamSinkConnector",
+    "name": "file-sink-connector",
+    "file": "/tmp/kafka-connect-file-sink.txt",
+    "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "tasks.max": "3",
+    "topics": "kafka-connect-file-sink"
+}

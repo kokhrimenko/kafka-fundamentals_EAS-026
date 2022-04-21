@@ -1,0 +1,9 @@
+{
+    "connector.class": "com.kokhrimenko.trainings.eas_026.kafka.fundamentals.lesson7.source.FileStreamSourceConnector",
+    "name": "file-source-connector",
+    "file": "/tmp/kafka-connect-file-source.txt",
+    "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "tasks.max": "3",
+    "topic": "kafka_connect_file_source"
+}
