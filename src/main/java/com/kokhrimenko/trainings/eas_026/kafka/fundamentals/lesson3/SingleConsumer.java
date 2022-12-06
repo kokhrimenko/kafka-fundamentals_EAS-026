@@ -31,6 +31,7 @@ public class SingleConsumer {
 		try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(prop)) {
 			log.info("subscribing to the kafka topic");
 			consumer.subscribe(Collections.singletonList(KAFKA_TOPIC));
+			//consumer.assign(null);
 			
 			while (true) {
 		        ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(5));
