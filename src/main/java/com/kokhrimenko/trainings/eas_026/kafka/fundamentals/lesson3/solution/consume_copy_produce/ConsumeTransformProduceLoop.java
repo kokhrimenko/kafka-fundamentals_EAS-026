@@ -47,14 +47,14 @@ public class ConsumeTransformProduceLoop {
 
 		KafkaConsumer<String, String> consumer = createKafkaConsumer();
 		consumer.subscribe(Collections.singleton(INPUT_TOPIC));
-		
+
 		KafkaProducer<String, String> producer = createKafkaProducer();
 		producer.initTransactions();
 		
 		while (true) {
 			log.info("Start processing next batch of data");
 			try {
-				ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(60));
+				ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(5));
 				Map<String, Integer> wordCountMap = records.records(new TopicPartition(INPUT_TOPIC, 0)).stream()
 						.flatMap(rec -> Stream.of(rec.value().split("\\s+")))
 						.map(word -> Tuple.of(word, 1))
@@ -90,6 +90,7 @@ public class ConsumeTransformProduceLoop {
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, CONSUMER_GROUP_ID);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG, "read_committed");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         return new KafkaConsumer<>(props);
 	}

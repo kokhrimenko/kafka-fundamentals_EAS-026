@@ -1,0 +1,854 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "7274c3d7-f113-4240-9abe-02b925e5f182",
+        "name": "eas-026"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Service",
+            "id": "ef5ce060-2f18-4147-a9f3-0632c71f312a",
+            "name": "kafka-rest"
+          },
+          "children": [
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"key_schema\": null, \"value_schema_id\": \"2\", \"records\": [{\"key\": null, \"value\": {\"id\": \"testItem\", \"value\": 1.0}}]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/topics/topicwithschemaregistry"
+                },
+                "id": "715f6487-8640-4539-b082-354e393ae7aa",
+                "name": "Copy of send message with schema-registry success",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.avro.v2+json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"name\": \"my_consumer_instance4\", \"format\": \"avro\", \"auto.offset.reset\": \"earliest\"}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup3"
+                },
+                "id": "aeb6d3d7-9cc5-4365-9e91-8ce99da14124",
+                "name": "With schema registry 1 create consumer",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"topics\":[\"topicwithschemaregistry\"]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup3/instances/my_consumer_instance4/subscription"
+                },
+                "id": "ddf8fe63-e946-4f3f-a874-ee06e671e6ff",
+                "name": "With schema registry 2 bind consumer to a topic",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.avro.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"topics\":[\"binarytopic\"]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup3/instances/my_consumer_instance4/records"
+                },
+                "id": "fe9886f4-2b9b-4226-8b14-86c5f91fa564",
+                "name": "With schema registry 3 get messages",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Accept",
+                    "value": "application/vnd.kafka.avro.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"name\": \"my_consumer_instance3\", \"format\": \"binary\", \"auto.offset.reset\": \"earliest\"}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup1"
+                },
+                "id": "04859f28-daf1-44d1-9b07-b9b173bede61",
+                "name": "binary 1 create consumer",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"topics\":[\"binarytopic\"]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup1/instances/my_consumer_instance3/subscription"
+                },
+                "id": "ca09c903-b3fc-452d-9325-6bd5ec00cd1f",
+                "name": "binary 2 bind consumer to a topic",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"topics\":[\"binarytopic\"]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup1/instances/my_consumer_instance3/records"
+                },
+                "id": "8fcf5e33-8ff8-44b7-9161-4c0e9cf151e1",
+                "name": "binary 3 get messages",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Accept",
+                    "value": "application/vnd.kafka.binary.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"name\": \"my_consumer_instance3\", \"format\": \"json\", \"auto.offset.reset\": \"earliest\"}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup2"
+                },
+                "id": "02b574f1-516b-402e-a764-1177e3b7dabd",
+                "name": "json 1 create consumer",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"topics\":[\"jsontopic\"]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup2/instances/my_consumer_instance3/subscription"
+                },
+                "id": "402f6caf-8369-4f26-9fe8-22b60be7df71",
+                "name": "json 2 bind consumer to a topic",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"topics\":[\"binarytopic\"]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/consumers/consumergroup2/instances/my_consumer_instance3/records"
+                },
+                "id": "f8cb3160-90ac-4068-a861-b4e3c3d5c353",
+                "name": "json 3 get messages",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Accept",
+                    "value": "application/vnd.kafka.json.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"value_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"User\\\", \\\"fields\\\": [{\\\"name\\\": \\\"name\\\", \\\"type\\\": \\\"string\\\"}]}\", \"records\": [{\"value\": {\"name\": \"avro user latest\"}}]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/topics/avrotopic"
+                },
+                "id": "791d319f-70d3-47a3-b8ef-692940ce1e70",
+                "name": "send avro message",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.json.v2+json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"records\":[{\"value\":\"S2Fma2E=\"}]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/topics/binarytopic"
+                },
+                "id": "e56b7442-2d24-49eb-b530-fa5169f1067b",
+                "name": "send binary message",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.binary.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"records\":[\n    {\"value\":{\"name\": \"4th JSON message\"}}\n  ]\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/topics/jsontopic"
+                },
+                "id": "99c84a60-a70f-4335-929c-6648f255ec6c",
+                "name": "send json message",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.json.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"value_schema_id\": \"1\", \"records\": [{\"value\": {\"id\":\"3rd_id\",\"value\":5.0}}]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/topics/topicwithschemaregistry"
+                },
+                "id": "74cee9ab-5567-4844-9232-15361e3179c9",
+                "name": "send message with schema-registry success",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.avro.v2+json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"key_schema\": null, \"value_schema_id\": \"3\", \"records\": [{\"key\": null, \"value\": {\"id\": \"testItem\", \"value\": 1.0}}]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/topics/topicwithschemaregistry"
+                },
+                "id": "099a0e1b-bc75-4d7b-8a1a-d4a6cb7499dd",
+                "name": "send message with schema-registry v2 success",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.avro.v2+json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"key_schema\": null, \"value_schema_id\": \"2\", \"records\": [{\"key\": null, \"value\": {\"name\": \"testItem\", \"value\": 1.0}}]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/topics/topicwithschemaregistry"
+                },
+                "id": "27658c3d-e75b-4d87-b4c2-9f1bafeede03",
+                "name": "send message with schema-registry wrong",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/vnd.kafka.avro.v2+json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Accept",
+                    "value": "application/vnd.kafka.v2+json"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "entity": {
+            "type": "Service",
+            "id": "7b1ee7b1-654b-4e4b-ac94-71d8ae04696d",
+            "name": "spring+kafka"
+          },
+          "children": [
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "first success async message"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8080",
+                  "path": "/async/messages/send"
+                },
+                "id": "5421c03c-05ff-4039-a151-27fffc9aca58",
+                "name": "Async send",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "message to non existing partition 20"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8080",
+                  "path": "/async/messages/send/20"
+                },
+                "id": "8e8c07ae-8e66-41cb-83cf-1e7fab3a2f19",
+                "name": "Async send with partition",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "hello worlds first REST message"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8080",
+                  "path": "/messages/send"
+                },
+                "id": "4de6daec-7684-4e73-a90e-fac67d184970",
+                "name": "Sync send",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "message to partition 2"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8080",
+                  "path": "/messages/send/20"
+                },
+                "id": "2ae28c59-50b5-4c9a-acf0-5519e495d7f9",
+                "name": "Sync send with partition",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
