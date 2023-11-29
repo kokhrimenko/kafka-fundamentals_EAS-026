@@ -74,7 +74,7 @@ public class ConsumeTransformProduceLoop {
 
 					offsetsToCommit.put(partition, new OffsetAndMetadata(offset + 1));
 				}
-
+				//check javaDoc - it's the correct usage
 				producer.sendOffsetsToTransaction(offsetsToCommit, consumer.groupMetadata());
 				producer.commitTransaction();
 				log.info("End processing next batch of data");
