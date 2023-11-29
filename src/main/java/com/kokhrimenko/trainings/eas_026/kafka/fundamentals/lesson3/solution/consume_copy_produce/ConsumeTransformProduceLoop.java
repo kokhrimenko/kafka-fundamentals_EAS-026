@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -55,7 +56,7 @@ public class ConsumeTransformProduceLoop {
 			log.info("Start processing next batch of data");
 			try {
 				ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(5));
-				Map<String, Integer> wordCountMap = records.records(new TopicPartition(INPUT_TOPIC, 0)).stream()
+				Map<String, Integer> wordCountMap = StreamSupport.stream(records.spliterator(), true)
 						.flatMap(rec -> Stream.of(rec.value().split("\\s+")))
 						.map(word -> Tuple.of(word, 1))
 						.collect(Collectors.toMap(Tuple::getKey, Tuple::getValue, (v1, v2) -> v1 + v2));
@@ -74,7 +75,7 @@ public class ConsumeTransformProduceLoop {
 					offsetsToCommit.put(partition, new OffsetAndMetadata(offset + 1));
 				}
 
-				producer.sendOffsetsToTransaction(offsetsToCommit, CONSUMER_GROUP_ID);
+				producer.sendOffsetsToTransaction(offsetsToCommit, consumer.groupMetadata());
 				producer.commitTransaction();
 				log.info("End processing next batch of data");
 			} catch (KafkaException e) {
